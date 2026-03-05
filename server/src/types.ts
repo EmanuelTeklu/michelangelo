@@ -16,7 +16,9 @@ export interface ExtractResponse {
   readonly structure: StructureData;
   readonly behavior: BehaviorData;
   readonly feel: FeelData;
-  readonly screenshots: ReadonlyMap<Viewport, string> | Record<Viewport, string>;
+  readonly screenshots:
+    | ReadonlyMap<Viewport, string>
+    | Record<Viewport, string>;
 }
 
 export interface ExtractionError {
@@ -44,9 +46,18 @@ export interface FontToken {
 export interface SurfaceData {
   readonly colors: ReadonlyArray<ColorToken>;
   readonly fonts: ReadonlyArray<FontToken>;
-  readonly spacing: ReadonlyArray<{ readonly value: string; readonly count: number }>;
-  readonly borderRadius: ReadonlyArray<{ readonly value: string; readonly count: number }>;
-  readonly shadows: ReadonlyArray<{ readonly value: string; readonly count: number }>;
+  readonly spacing: ReadonlyArray<{
+    readonly value: string;
+    readonly count: number;
+  }>;
+  readonly borderRadius: ReadonlyArray<{
+    readonly value: string;
+    readonly count: number;
+  }>;
+  readonly shadows: ReadonlyArray<{
+    readonly value: string;
+    readonly count: number;
+  }>;
 }
 
 // ─── Structure Layer ──────────────────────────────────────────────
@@ -133,3 +144,176 @@ export const VIEWPORT_CONFIGS: ReadonlyArray<ViewportConfig> = [
   { name: "tablet", width: 768, height: 1024 },
   { name: "desktop", width: 1440, height: 900 },
 ] as const;
+
+// ─── Taste Profile ───────────────────────────────────────────────
+
+export interface TastePrinciples {
+  readonly identity: { readonly description: string };
+  readonly themes: ReadonlyArray<string>;
+  readonly values: ReadonlyArray<string>;
+}
+
+export interface TastePalette {
+  readonly base: {
+    readonly background: string;
+    readonly surface: string;
+    readonly text: string;
+  };
+  readonly accents: Readonly<Record<string, string>>;
+  readonly rules: ReadonlyArray<string>;
+}
+
+export interface TasteTypography {
+  readonly fonts: Readonly<Record<string, string>>;
+  readonly rules: ReadonlyArray<string>;
+}
+
+export interface TasteSpacing {
+  readonly density: string;
+  readonly "border-radius": string;
+  readonly rules: ReadonlyArray<string>;
+}
+
+export interface TasteAntiPatterns {
+  readonly reject: ReadonlyArray<string>;
+}
+
+export interface TasteProfile {
+  readonly principles: TastePrinciples;
+  readonly palette: TastePalette;
+  readonly typography: TasteTypography;
+  readonly spacing: TasteSpacing;
+  readonly antiPatterns: TasteAntiPatterns;
+}
+
+// ─── Recombination Engine ────────────────────────────────────────
+
+export type TargetComponent =
+  | "sidebar"
+  | "card-grid"
+  | "data-table"
+  | "stat-bar"
+  | "hero-section"
+  | "nav-bar";
+
+export interface RecombineRequest {
+  readonly target: TargetComponent;
+  readonly parts: {
+    readonly surface?: string;
+    readonly structure?: string;
+    readonly behavior?: string;
+    readonly feel?: string;
+  };
+  readonly tasteProfile?: TasteProfile;
+  readonly constraints?: ReadonlyArray<string>;
+}
+
+export interface PartsManifest {
+  readonly surface: {
+    readonly sourceId: string;
+    readonly tokensUsed: ReadonlyArray<string>;
+  };
+  readonly structure: {
+    readonly sourceId: string;
+    readonly patternsUsed: ReadonlyArray<string>;
+  };
+  readonly behavior: {
+    readonly sourceId: string;
+    readonly animationsUsed: ReadonlyArray<string>;
+  };
+  readonly feel: {
+    readonly sourceId: string;
+    readonly guidanceApplied: ReadonlyArray<string>;
+  };
+}
+
+export interface ConflictResolution {
+  readonly property: string;
+  readonly sourceA: { readonly id: string; readonly value: string };
+  readonly sourceB: { readonly id: string; readonly value: string };
+  readonly resolvedBy:
+    | "taste-profile"
+    | "structure-constrains-surface"
+    | "behavior-inherits"
+    | "feel-guides";
+  readonly resolvedValue: string;
+  readonly explanation: string;
+}
+
+export interface RecombineResult {
+  readonly code: string;
+  readonly html: string;
+  readonly manifest: PartsManifest;
+  readonly conflicts: ReadonlyArray<ConflictResolution>;
+  readonly tailwindConfig: Readonly<Record<string, unknown>>;
+}
+
+// ─── Resolved Tokens (internal to recombiner) ────────────────────
+
+export interface ResolvedColorTokens {
+  readonly background: string;
+  readonly surface: string;
+  readonly text: string;
+  readonly primary: string;
+  readonly secondary: string;
+  readonly accent: string;
+  readonly border: string;
+  readonly muted: string;
+}
+
+export interface ResolvedTypographyTokens {
+  readonly fontData: string;
+  readonly fontUi: string;
+  readonly sizeXs: string;
+  readonly sizeSm: string;
+  readonly sizeBase: string;
+  readonly sizeLg: string;
+  readonly sizeXl: string;
+  readonly weightNormal: string;
+  readonly weightMedium: string;
+  readonly weightBold: string;
+  readonly lineHeight: string;
+}
+
+export interface ResolvedSpacingTokens {
+  readonly unit: number;
+  readonly xs: string;
+  readonly sm: string;
+  readonly md: string;
+  readonly lg: string;
+  readonly xl: string;
+  readonly gap: string;
+  readonly padding: string;
+  readonly borderRadius: string;
+}
+
+export interface ResolvedBehaviorTokens {
+  readonly transitionDuration: string;
+  readonly transitionTiming: string;
+  readonly hoverScale: string;
+  readonly hoverOpacity: string;
+}
+
+export interface ResolvedTokens {
+  readonly colors: ResolvedColorTokens;
+  readonly typography: ResolvedTypographyTokens;
+  readonly spacing: ResolvedSpacingTokens;
+  readonly behavior: ResolvedBehaviorTokens;
+}
+
+export interface ComponentTemplate {
+  readonly name: TargetComponent;
+  readonly description: string;
+  readonly generate: (tokens: ResolvedTokens) => string;
+  readonly generateHtml: (tokens: ResolvedTokens) => string;
+}
+
+// ─── Extraction Loader ──────────────────────────────────────────
+
+export interface ExtractionData {
+  readonly id: string;
+  readonly surface: SurfaceData;
+  readonly structure: StructureData;
+  readonly behavior: BehaviorData;
+  readonly feel: FeelData;
+}
