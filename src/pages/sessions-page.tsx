@@ -1,58 +1,57 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   getSessions,
   createSession,
   deleteSession,
   getActiveSessionId,
   setActiveSession,
-} from '@/lib/store'
-import type { Session } from '@/lib/types'
+} from "@/lib/store";
+import type { Session } from "@/lib/types";
 
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 export function SessionsPage() {
-  const navigate = useNavigate()
-  const [sessions, setSessions] = useState<readonly Session[]>([])
-  const [activeId, setActiveId] = useState<string | null>(null)
-  const [isCreating, setIsCreating] = useState(false)
-  const [newName, setNewName] = useState('')
-
-  useEffect(() => {
-    setSessions(getSessions())
-    setActiveId(getActiveSessionId())
-  }, [])
+  const navigate = useNavigate();
+  const [sessions, setSessions] = useState<readonly Session[]>(() =>
+    getSessions(),
+  );
+  const [activeId, setActiveId] = useState<string | null>(() =>
+    getActiveSessionId(),
+  );
+  const [isCreating, setIsCreating] = useState(false);
+  const [newName, setNewName] = useState("");
 
   function handleCreate() {
-    if (newName.trim().length === 0) return
-    const session = createSession(newName.trim())
-    setSessions(getSessions())
-    setActiveId(session.id)
-    setNewName('')
-    setIsCreating(false)
-    navigate('/')
+    if (newName.trim().length === 0) return;
+    const session = createSession(newName.trim());
+    setSessions(getSessions());
+    setActiveId(session.id);
+    setNewName("");
+    setIsCreating(false);
+    navigate("/");
   }
 
   function handleActivate(sessionId: string) {
-    setActiveSession(sessionId)
-    setActiveId(sessionId)
+    setActiveSession(sessionId);
+    setActiveId(sessionId);
   }
 
   function handleDelete(sessionId: string) {
-    deleteSession(sessionId)
-    setSessions(getSessions())
-    setActiveId(getActiveSessionId())
+    deleteSession(sessionId);
+    setSessions(getSessions());
+    setActiveId(getActiveSessionId());
   }
 
   return (
@@ -89,10 +88,10 @@ export function SessionsPage() {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleCreate()
-                if (e.key === 'Escape') {
-                  setIsCreating(false)
-                  setNewName('')
+                if (e.key === "Enter") handleCreate();
+                if (e.key === "Escape") {
+                  setIsCreating(false);
+                  setNewName("");
                 }
               }}
               placeholder="e.g. Styling IronWatch — Sidebar"
@@ -111,8 +110,8 @@ export function SessionsPage() {
               size="sm"
               variant="ghost"
               onClick={() => {
-                setIsCreating(false)
-                setNewName('')
+                setIsCreating(false);
+                setNewName("");
               }}
               className="font-mono text-xs"
             >
@@ -138,15 +137,15 @@ export function SessionsPage() {
         ) : (
           <div className="flex flex-col gap-2">
             {sessions.map((session) => {
-              const isActive = session.id === activeId
+              const isActive = session.id === activeId;
 
               return (
                 <div
                   key={session.id}
                   className={`flex items-center gap-4 border px-4 py-3 transition-colors ${
                     isActive
-                      ? 'border-primary/30 bg-primary/5'
-                      : 'border-border bg-card hover:bg-secondary/50'
+                      ? "border-primary/30 bg-primary/5"
+                      : "border-border bg-card hover:bg-secondary/50"
                   }`}
                 >
                   <div className="flex flex-1 flex-col gap-1">
@@ -194,11 +193,11 @@ export function SessionsPage() {
                     </Button>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

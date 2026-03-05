@@ -1,26 +1,24 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { HistoryRow } from '@/components/history/history-row'
-import { getHistory, clearHistory } from '@/lib/store'
-import type { EvalRecord } from '@/lib/types'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { HistoryRow } from "@/components/history/history-row";
+import { getHistory, clearHistory } from "@/lib/store";
+import type { EvalRecord } from "@/lib/types";
 
 export function HistoryPage() {
-  const [history, setHistory] = useState<readonly EvalRecord[]>([])
-  const [expandedId, setExpandedId] = useState<string | null>(null)
-
-  useEffect(() => {
-    setHistory(getHistory())
-  }, [])
+  const [history, setHistory] = useState<readonly EvalRecord[]>(() =>
+    getHistory(),
+  );
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   function handleClear() {
-    clearHistory()
-    setHistory([])
-    setExpandedId(null)
+    clearHistory();
+    setHistory([]);
+    setExpandedId(null);
   }
 
   function handleToggle(id: string) {
-    setExpandedId((prev) => (prev === id ? null : id))
+    setExpandedId((prev) => (prev === id ? null : id));
   }
 
   return (
@@ -68,5 +66,5 @@ export function HistoryPage() {
         )}
       </div>
     </div>
-  )
+  );
 }
