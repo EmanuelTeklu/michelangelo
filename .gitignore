@@ -25,3 +25,7 @@ npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.vercel
+
+# Server extraction outputs
+server/extractions/
