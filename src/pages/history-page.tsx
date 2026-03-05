@@ -45,7 +45,7 @@ export function HistoryPage() {
         )}
       </div>
 
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-4">
         {history.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <span className="font-mono text-sm text-muted-foreground">

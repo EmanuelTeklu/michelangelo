@@ -77,7 +77,7 @@ export function SessionsPage() {
         )}
       </div>
 
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-4">
         {isCreating && (
           <div className="mb-4 flex items-center gap-3 border border-primary/30 bg-primary/5 px-4 py-3">
             <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
