@@ -1,31 +1,35 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from "react-router-dom";
 import {
   Columns2,
   Palette,
   History,
   FolderOpen,
-} from 'lucide-react'
+  Globe,
+  Archive,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
+} from "@/components/ui/tooltip";
 
 interface NavItem {
-  readonly path: string
-  readonly label: string
-  readonly icon: React.ReactNode
+  readonly path: string;
+  readonly label: string;
+  readonly icon: React.ReactNode;
 }
 
 const NAV_ITEMS: readonly NavItem[] = [
-  { path: '/', label: 'Eval', icon: <Columns2 size={18} /> },
-  { path: '/profile', label: 'Profile', icon: <Palette size={18} /> },
-  { path: '/history', label: 'History', icon: <History size={18} /> },
-  { path: '/sessions', label: 'Sessions', icon: <FolderOpen size={18} /> },
-]
+  { path: "/", label: "Eval", icon: <Columns2 size={18} /> },
+  { path: "/extract", label: "Extract", icon: <Globe size={18} /> },
+  { path: "/library", label: "Library", icon: <Archive size={18} /> },
+  { path: "/profile", label: "Profile", icon: <Palette size={18} /> },
+  { path: "/history", label: "History", icon: <History size={18} /> },
+  { path: "/sessions", label: "Sessions", icon: <FolderOpen size={18} /> },
+];
 
 export function SidebarNav() {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <nav className="flex h-screen w-[60px] flex-col items-center border-r border-border bg-[#0f0f0f] py-4">
@@ -36,9 +40,9 @@ export function SidebarNav() {
       <div className="flex flex-1 flex-col gap-1">
         {NAV_ITEMS.map((item) => {
           const isActive =
-            item.path === '/'
-              ? location.pathname === '/'
-              : location.pathname.startsWith(item.path)
+            item.path === "/"
+              ? location.pathname === "/"
+              : location.pathname.startsWith(item.path);
 
           return (
             <Tooltip key={item.path} delayDuration={0}>
@@ -47,8 +51,8 @@ export function SidebarNav() {
                   to={item.path}
                   className={`flex h-10 w-10 flex-col items-center justify-center gap-0.5 transition-colors ${
                     isActive
-                      ? 'bg-secondary text-primary'
-                      : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                      ? "bg-secondary text-primary"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   {item.icon}
@@ -61,7 +65,7 @@ export function SidebarNav() {
                 {item.label}
               </TooltipContent>
             </Tooltip>
-          )
+          );
         })}
       </div>
 
@@ -69,5 +73,5 @@ export function SidebarNav() {
         v1
       </div>
     </nav>
-  )
+  );
 }
