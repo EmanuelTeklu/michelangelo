@@ -1,0 +1,11 @@
+# Michelangelo Taste Profile — Anti-Patterns
+# Things to never do. Updated when Emanuel rejects proposals.
+
+reject:
+  - gradients
+  - light-theme-defaults
+  - decorative-rounded-corners
+  - skeleton-loaders-that-flash
+  - placeholder-stock-imagery
+  - emoji-in-professional-ui
+  - low-contrast-muted-text

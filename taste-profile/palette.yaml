@@ -1,0 +1,20 @@
+# Michelangelo Taste Profile — Palette
+# Color preferences and usage rules. Seeded from IronWatch.
+
+base:
+  background: dark
+  surface: muted-dark
+  text: high-contrast-white
+
+accents:
+  primary: yellow       # action, focus
+  armed: orange         # urgency, armed status
+  ai: purple            # AI/automated elements
+  success: green        # confirmed, covered
+  destructive: red      # alerts, uncovered
+  info: blue            # informational
+
+rules:
+  - accent-colors-are-semantic-not-decorative
+  - never-use-gradients
+  - contrast-ratio-minimum-4.5

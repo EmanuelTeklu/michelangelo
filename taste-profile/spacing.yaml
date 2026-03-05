@@ -1,0 +1,10 @@
+# Michelangelo Taste Profile — Spacing
+# Rhythm and density preferences. To be refined through dialogue.
+
+density: high
+border-radius: "0.5rem"
+
+rules:
+  - prefer-density-over-whitespace
+  - consistent-gap-rhythm
+  - breathing-room-between-sections-not-within

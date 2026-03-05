@@ -1,0 +1,8 @@
+{
+  "approved": [],
+  "rejected": [],
+  "meta": {
+    "created": "2026-03-05",
+    "note": "Embeddings deferred to v2. This index tracks visual references once the vector store is integrated."
+  }
+}

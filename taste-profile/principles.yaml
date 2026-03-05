@@ -1,0 +1,17 @@
+# Michelangelo Taste Profile — Principles
+# High-level aesthetic rules. Updated through dialogue and observation.
+
+identity:
+  description: "Utilitarian, dark, precise. Military-industrial clarity with selective warmth."
+
+themes:
+  - dark-first
+  - high-contrast-data
+  - monospace-for-information
+  - selective-accent-color
+
+values:
+  - clarity-over-decoration
+  - density-over-whitespace
+  - function-drives-form
+  - sharp-geometry

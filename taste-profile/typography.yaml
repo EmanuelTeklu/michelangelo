@@ -1,0 +1,12 @@
+# Michelangelo Taste Profile — Typography
+# Font preferences and scale. Seeded from IronWatch.
+
+fonts:
+  data: "DM Mono"       # monospace for information-dense content
+  ui: "DM Sans"         # clean sans-serif for interface text
+
+rules:
+  - monospace-for-data-and-metrics
+  - sans-serif-for-navigation-and-labels
+  - no-serif-fonts
+  - weight-contrast-for-hierarchy
