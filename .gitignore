@@ -1,6 +1,27 @@
-node_modules/
-dist/
+
+!.vscode/extensions.json
+.DS_Store
 .env
 .env.local
+.idea
+.vscode/*
 *.local
-.DS_Store
+*.log
+*.njsproj
+*.ntvs*
+*.sln
+*.suo
+*.sw?
+# Editor directories and files
+# Logs
+dist
+dist-ssr
+dist/
+lerna-debug.log*
+logs
+node_modules
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
